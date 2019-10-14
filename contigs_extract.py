@@ -17,31 +17,26 @@ def contig_extract(assembly, folder):
 	contigs_names = subprocess.getoutput("grep '^>' " + folder + assembly)
 	contigs_full_list = contigs_names.split("\n")
 	contigs_list = []
-	contigs_list_out = folder + "contigs_list.txt"
 	
 	for contig_long in contigs_full_list:
 		contig_short = contig_long.split(" ")[0][1:]
 		contigs_list.append(contig_short)
 		os.system("samtools faidx " + folder + assembly + " " + contig_short + " > " + folder + contig_short + ".fa") 
 
-	with open(contigs_list_out, "w") as outfile:
-		for contig_name in contigs_list:
-			outfile.write(contig_name + "\n")
-
 
 if args.folder == 'Canu':
-	folder_path = "/storage/home/endimiani/mclement/1.Assembly/Canu/" + args.strain + "/"
+	folder_path = "~/1.Assembly/Canu/" + args.strain + "/"
 	assembly_name = args.strain + ".contigs.fasta"
 	contig_extract(assembly_name, folder_path)
 	
 elif args.folder == 'Circlator':
-	folder_path = "/storage/home/endimiani/mclement/2.Circlator/" + args.strain + "/"
+	folder_path = "~/2.Circlator/" + args.strain + "/"
 	assembly_name = "06.fixstart.fasta"
 	contig_extract(assembly_name, folder_path)
 	
 elif args.folder == 'Pilon':
-	folder_path = "/storage/home/endimiani/mclement/3.Polishing/" + args.strain + "/"
-	assembly_name = args.strain + "_pilon.fasta"
+	folder_path = "~/3.Polishing/" + args.strain + "/"
+	assembly_name = args.strain + ".final.fasta"
 	contig_extract(assembly_name, folder_path)
 else:
 	if not args.folder.endswith("/"):

@@ -29,7 +29,7 @@ parser.add_argument("-v", "--verbiosity", action="store_true", help="Retrieve st
 args = parser.parse_args()
 
 def run_resfinder(assembly, out_dir, identity, coverage, verbiosity):
-    res_db = "Software/resfinder/resfinder_db"
+    res_db = "Softwares/resfinder/resfinder_db"
     prog = "resfinder"
     outdir = create_outdir(out_dir, prog)
     resfinder_command = ["resfinder", "-i", assembly, "-o", outdir,
@@ -43,13 +43,12 @@ def run_resfinder(assembly, out_dir, identity, coverage, verbiosity):
         print(resfinder_out, resfinder_err, flush=True)
 
 def run_pointfinder(assembly, out_dir, identity, coverage, specie, allmut, verbiosity):
-    point_db = "Software/pointfinder/pointfinder_db"
+    point_db = "Softwares/pointfinder/pointfinder_db"
     prog = "pointfinder"
-    blastn_full_path=".conda/envs/biopy/bin/blastn"
     outdir = create_outdir(out_dir, prog)
     pointfinder_command = ["pointfinder", "-i", assembly, "-o", outdir,
                            "-s", specie, "-p", point_db,
-                           "-m", "blastn", "-m_p", blastn_full_path, 
+                           "-m", "blastn", "-m_p", "Softwares/miniconda3/bin/blastn",
                            "-l", str(coverage), "-t", str(identity)]
 
     if allmut:
@@ -62,7 +61,7 @@ def run_pointfinder(assembly, out_dir, identity, coverage, specie, allmut, verbi
         print(pointfinder_out, pointfinder_err, flush=True)
 
 def run_plasmidfinder(assembly, out_dir, identity, coverage, extendedout, verbiosity):
-    plasmid_db = "Software/plasmidfinder/plasmidfinder_db"
+    plasmid_db = "Softwares/plasmidfinder/plasmidfinder_db"
     prog = "plasmidfinder"
     outdir = create_outdir(out_dir, prog)
     plasmidfinder_command = ["plasmidfinder", "-i", assembly, "-o", outdir,
@@ -80,10 +79,10 @@ def run_plasmidfinder(assembly, out_dir, identity, coverage, extendedout, verbio
 
 
 def run_mlst(assembly, out_dir, specie, extendedout, verbiosity):
-    mlst_db = "Software/mlst/mlst_db"
+    mlst_db = "Softwares/mlst/mlst_db"
     prog = "mlst"
     outdir = create_outdir(out_dir, prog)
-    mlst_command = ["mlst", "-i", assembly, "-o", outdir,
+    mlst_command = ["MLST", "-i", assembly, "-o", outdir,
                     "-s", specie, "-p", mlst_db,
                     "-mp", "blastn"]
     if extendedout:
@@ -97,10 +96,10 @@ def run_mlst(assembly, out_dir, specie, extendedout, verbiosity):
 
 
 def run_pmlst(assembly, out_dir, scheme, extendedout, verbiosity):
-    pmlst_db = "Software/pmlst/pmlst_db"
+    pmlst_db = "Softwares/pmlst/pmlst_db"
     prog = "pmlst"
     outdir = create_outdir(out_dir, prog)
-    pmlst_command = ["pmlst", "-i", assembly, "-o", outdir,
+    pmlst_command = ["pMLST", "-i", assembly, "-o", outdir,
                     "-s", scheme, "-p", pmlst_db,
                     "-mp", "blastn"]
     if extendedout:

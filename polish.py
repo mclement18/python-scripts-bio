@@ -75,8 +75,10 @@ def bowtie_align(assembly, one, two, outdir, n, status, threads, verbose):
                           "-1", one, "-2", two, "-p", threads,
                           "--local", "--very-sensitive-local",
                           "-S", sam]
+        command2print = bowtie_command
+        command2print[8] = str(command2print[8])
 
-        print_command(bowtie_command)
+        print_command(command2print)
         bowtie = sb.check_output(bowtie_command, stderr=sb.STDOUT)
 
         return sam, bowtie
